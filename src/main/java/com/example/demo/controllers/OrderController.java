@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.business.abstracts.OrderService;
 import com.example.demo.business.requests.order.CreateOrderRequest;
-import com.example.demo.business.requests.order.DeleteOrderRequest;
 import com.example.demo.business.requests.order.UpdateOrderRequest;
+import com.example.demo.business.responses.order.CreateOrderResponse;
 import com.example.demo.business.responses.order.DeleteOrderResponse;
 import com.example.demo.business.responses.order.GetAllOrdersResponse;
 import com.example.demo.business.responses.order.GetOrderResponse;
 import com.example.demo.business.responses.order.UpdateOrderResponse;
+import com.example.demo.core.result.DataResult;
 
 import lombok.AllArgsConstructor;
 
@@ -28,24 +29,24 @@ public class OrderController {
 
 	private OrderService orderService;
 	@GetMapping("/getall")
-	public List<GetAllOrdersResponse> getAll(){
+	public  DataResult<List<GetAllOrdersResponse>> getAll(){
 		return orderService.getAll();
 	}
 	
 	@PostMapping("/add")
-	public void add(@RequestBody() CreateOrderRequest createOrderRequest) {
-		this.orderService.add(createOrderRequest);
+	public  DataResult<CreateOrderResponse> add(@RequestBody() CreateOrderRequest createOrderRequest) {
+		return this.orderService.add(createOrderRequest);
 	}
     @GetMapping("/getbyid")
-    public GetOrderResponse getById(int id){
+    public  DataResult<GetOrderResponse> getById(int id){
     	 return orderService.getById(id);
     } 
     @DeleteMapping("/delete")
-	public DeleteOrderResponse deleteOrder(DeleteOrderRequest deleteOrderRequest) {
-		return orderService.deleteOrder(deleteOrderRequest);
+	public  DataResult<DeleteOrderResponse> delete(int id) {
+		return orderService.delete(id);
 	}
 	@PutMapping("/update")
-	public UpdateOrderResponse updateOrder(UpdateOrderRequest updateOrderRequest) {
-		return orderService.updateOrder(updateOrderRequest);
+	public DataResult<UpdateOrderResponse> update(@RequestBody UpdateOrderRequest updateOrderRequest) {
+		return orderService.update(updateOrderRequest);
 	}
 }

@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.business.abstracts.ProductService;
 import com.example.demo.business.requests.product.CreateProductRequest;
 import com.example.demo.business.requests.product.UpdateProductRequest;
+import com.example.demo.business.responses.product.CreateProductResponse;
 import com.example.demo.business.responses.product.DeleteProductResponse;
 import com.example.demo.business.responses.product.GetAllProductsResponse;
 import com.example.demo.business.responses.product.GetProductResponse;
 import com.example.demo.business.responses.product.UpdateProductResponse;
+import com.example.demo.core.result.DataResult;
 
 import lombok.AllArgsConstructor;
 
@@ -28,31 +30,31 @@ public class ProductController {
 	private ProductService productService;
 	
 	@GetMapping("/getall")
-	public List<GetAllProductsResponse> getAll() {
+	public DataResult<List<GetAllProductsResponse>> getAll() {
 		return productService.getAll();
 	}
 	
 	@PostMapping("/add")
-	public void add(@RequestBody CreateProductRequest createProductRequest) {
-		productService.add(createProductRequest);
+	public DataResult<CreateProductResponse> add(@RequestBody CreateProductRequest createProductRequest) {
+		return productService.add(createProductRequest);
+		
 	}
 	
-
 	@GetMapping("/getbyname")
-	public List<GetAllProductsResponse> getByName(String name) {
+	public DataResult<GetAllProductsResponse> getByName(String name) {
 		return productService.getByName(name);
 	}
 
 	@GetMapping("/getbyid")
-	public GetProductResponse getById(int id) {
+	public DataResult<GetProductResponse> getById(int id) {
 		return productService.getById(id);
 	}
 	@DeleteMapping("/delete")
-	public DeleteProductResponse deleteById(int id) {
+	public DataResult<DeleteProductResponse> deleteById(int id) {
 		return productService.deleteProduct(id);
 	}
 	@PutMapping("/update")
-	public UpdateProductResponse updateProduct(@RequestBody UpdateProductRequest updateProductRequest) {
+	public DataResult<UpdateProductResponse> updateProduct(@RequestBody UpdateProductRequest updateProductRequest) {
 		return productService.updateProduct(updateProductRequest);
 	}
 	

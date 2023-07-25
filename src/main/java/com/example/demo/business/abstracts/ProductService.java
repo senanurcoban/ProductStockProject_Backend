@@ -10,13 +10,17 @@ import com.example.demo.business.responses.product.DeleteProductResponse;
 import com.example.demo.business.responses.product.GetAllProductsResponse;
 import com.example.demo.business.responses.product.GetProductResponse;
 import com.example.demo.business.responses.product.UpdateProductResponse;
+import com.example.demo.core.result.DataResult;
 
 public interface ProductService {
 
-	List<GetAllProductsResponse> getAll();
-	CreateProductResponse add(CreateProductRequest createProductRequest);
-	List<GetAllProductsResponse> getByName(String name);
-	GetProductResponse getById(int id);
-	DeleteProductResponse deleteProduct(int id);
-	UpdateProductResponse updateProduct(UpdateProductRequest updateProductRequest);
+	DataResult<List<GetAllProductsResponse>> getAll();
+	DataResult<CreateProductResponse> add(CreateProductRequest createProductRequest);
+	DataResult<GetAllProductsResponse> getByName(String name);
+	DataResult<GetProductResponse> getById(int id);
+	DataResult<DeleteProductResponse> deleteProduct(int id);
+	DataResult<UpdateProductResponse> updateProduct(UpdateProductRequest updateProductRequest);
+	
+	
+	
 }

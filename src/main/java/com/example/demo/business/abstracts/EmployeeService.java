@@ -4,19 +4,21 @@ import java.util.List;
 
 
 import com.example.demo.business.requests.employee.CreateEmployeeRequest;
-import com.example.demo.business.requests.employee.DeleteEmployeeRequest;
 import com.example.demo.business.requests.employee.UpdateEmployeeRequest;
 import com.example.demo.business.responses.employee.CreateEmployeeResponse;
 import com.example.demo.business.responses.employee.DeleteEmployeeResponse;
 import com.example.demo.business.responses.employee.GetAllEmloyeesResponse;
 import com.example.demo.business.responses.employee.GetEmployeeResponse;
 import com.example.demo.business.responses.employee.UpdateEmployeeResponse;
+import com.example.demo.core.result.DataResult;
 
 public interface EmployeeService {
 
-	List<GetAllEmloyeesResponse> getAll();
-	CreateEmployeeResponse add(CreateEmployeeRequest createEmployeeRequest);
-	List<GetEmployeeResponse> getByFirstName(String name);
-	DeleteEmployeeResponse deleteEmployee(DeleteEmployeeRequest deleteEmployeeRequest);
-	UpdateEmployeeResponse updateEmployee(UpdateEmployeeRequest updateEmployeeRequest);
+	
+	DataResult<CreateEmployeeResponse> add(CreateEmployeeRequest createEmployeeRequest);
+	DataResult<List<GetAllEmloyeesResponse>> getAll();
+	DataResult<GetEmployeeResponse> getById(int id);
+	DataResult<DeleteEmployeeResponse> delete(int id);
+	DataResult<UpdateEmployeeResponse> update (UpdateEmployeeRequest updateEmployeeRequest);
+	DataResult<GetEmployeeResponse> getByFirstName(String name);
 }
