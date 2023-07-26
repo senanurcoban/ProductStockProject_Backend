@@ -27,7 +27,7 @@ public class Order {
 	private int id;
 	
 	@ManyToOne
-	@JoinColumn(name="employee_id")
+	@JoinColumn(name="employeeId")
 	private Employee employee;
 	
 	@Column(name="date")

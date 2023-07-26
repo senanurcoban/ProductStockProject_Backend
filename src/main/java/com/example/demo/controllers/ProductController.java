@@ -20,6 +20,7 @@ import com.example.demo.business.responses.product.GetProductResponse;
 import com.example.demo.business.responses.product.UpdateProductResponse;
 import com.example.demo.core.result.DataResult;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -35,7 +36,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/add")
-	public DataResult<CreateProductResponse> add(@RequestBody CreateProductRequest createProductRequest) {
+	public DataResult<CreateProductResponse> add(@RequestBody @Valid CreateProductRequest createProductRequest) {
 		return productService.add(createProductRequest);
 		
 	}
@@ -54,7 +55,7 @@ public class ProductController {
 		return productService.deleteProduct(id);
 	}
 	@PutMapping("/update")
-	public DataResult<UpdateProductResponse> updateProduct(@RequestBody UpdateProductRequest updateProductRequest) {
+	public DataResult<UpdateProductResponse> updateProduct(@RequestBody @Valid UpdateProductRequest updateProductRequest) {
 		return productService.updateProduct(updateProductRequest);
 	}
 	

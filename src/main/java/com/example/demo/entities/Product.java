@@ -35,6 +35,6 @@ public class Product {
 	   
 	   
 	   @ManyToOne
-	   @JoinColumn(name="category_id")
+	   @JoinColumn(name="categoryId")
 	   private Category category;  // one to many kategori one product fazla
 }

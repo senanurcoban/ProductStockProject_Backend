@@ -16,10 +16,10 @@ import com.example.demo.business.requests.employee.UpdateEmployeeRequest;
 import com.example.demo.business.responses.employee.CreateEmployeeResponse;
 import com.example.demo.business.responses.employee.DeleteEmployeeResponse;
 import com.example.demo.business.responses.employee.GetAllEmloyeesResponse;
-import com.example.demo.business.responses.employee.GetEmployeeResponse;
 import com.example.demo.business.responses.employee.UpdateEmployeeResponse;
 import com.example.demo.core.result.DataResult;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -35,19 +35,16 @@ public class EmployeeController {
 	}
 	
 	@PostMapping("/add")
-	public DataResult<CreateEmployeeResponse> add(@RequestBody CreateEmployeeRequest createEmployeeRequest) {
+	public DataResult<CreateEmployeeResponse> add(@RequestBody @Valid CreateEmployeeRequest createEmployeeRequest) {
 		 return this.employeeService.add(createEmployeeRequest);
 	}
-	@GetMapping("/getByFirstName")
-	public DataResult<GetEmployeeResponse> getByFirstName(String name) {
-		return employeeService.getByFirstName(name);
-    }
+	
 	@DeleteMapping("/delete")
 	public DataResult<DeleteEmployeeResponse> delete(int id) {
 			return employeeService.delete(id);
 		}
     @PutMapping("/update")
-	public DataResult<UpdateEmployeeResponse> update(@RequestBody UpdateEmployeeRequest updateEmployeeRequest) {
+	public DataResult<UpdateEmployeeResponse> update(@RequestBody @Valid UpdateEmployeeRequest updateEmployeeRequest) {
 			return employeeService.update(updateEmployeeRequest);
 		}
 }

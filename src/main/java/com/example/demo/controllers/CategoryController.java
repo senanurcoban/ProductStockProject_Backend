@@ -20,6 +20,7 @@ import com.example.demo.business.responses.category.GetCategoryResponse;
 import com.example.demo.business.responses.category.UpdateCategoryResponse;
 import com.example.demo.core.result.DataResult;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -35,7 +36,7 @@ private CategoryService categoryService;
 	}
 	
 	@PostMapping("/add")
-	public DataResult<CreateCategoryResponse> add(@RequestBody CreateCategoryRequest createCategoryRequest) {
+	public DataResult<CreateCategoryResponse> add(@RequestBody @Valid CreateCategoryRequest createCategoryRequest) {
 		return categoryService.add(createCategoryRequest);
 	}
 	
@@ -52,7 +53,7 @@ private CategoryService categoryService;
 		return categoryService.delete(id);
 	}
 	@PutMapping("/update")
-	public DataResult<UpdateCategoryResponse> update(@RequestBody UpdateCategoryRequest updateCategoryRequest) {
+	public DataResult<UpdateCategoryResponse> update(@RequestBody @Valid UpdateCategoryRequest updateCategoryRequest) {
 		return categoryService.update(updateCategoryRequest);
 	}
 }

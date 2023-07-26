@@ -28,6 +28,7 @@ public class ProductManager implements ProductService{
 
 	private ProductRepository productRepository;
 	private ModelMapperService modelMapperService;
+	
 	@Override
 	public DataResult<List<GetAllProductsResponse>> getAll() {
 		List<Product> products=this.productRepository.findAll();
@@ -35,30 +36,44 @@ public class ProductManager implements ProductService{
 				.collect(Collectors.toList());
 		return new SuccessDataResult<>(getAllProductResponse, BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
 	}
+	
 	@Override
 	public DataResult<CreateProductResponse> add(CreateProductRequest createProductRequest) {
-		// TODO Auto-generated method stub
-		return null;
+		Product product=this.modelMapperService.forRequest().map(createProductRequest,Product.class);
+		this.productRepository.save(product);
+		CreateProductResponse createProductResponse=this.modelMapperService.forResponse().map(product, CreateProductResponse.class);
+		return new SuccessDataResult<>(createProductResponse, BusinessMessage.GlobalMessages.DATA_ADDED_SUCCESSFULLY);
 	}
+	
 	@Override
 	public DataResult<GetAllProductsResponse> getByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Product> product=this.productRepository.findByName(name);
+		GetAllProductsResponse getAllProductResponse= this.modelMapperService.forResponse().map(product, GetAllProductsResponse.class);	
+		return new SuccessDataResult<>(getAllProductResponse,BusinessMessage.GlobalMessages. DATA_NAME_LISTED_SUCCESSFULLY);
 	}
+	
 	@Override
 	public DataResult<GetProductResponse> getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		    Product product = this.productRepository.findById(id).get();
+	        GetProductResponse getAllProductResponse= this.modelMapperService.forResponse().map(product, GetProductResponse.class);
+	        return new SuccessDataResult<>(getAllProductResponse,BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
+		
 	}
+	
 	@Override
 	public DataResult<DeleteProductResponse> deleteProduct(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Product product = this.productRepository.findById(id).get();
+		DeleteProductResponse deleteProductResponse=this.modelMapperService.forResponse().map(product,DeleteProductResponse.class);
+		this.productRepository.delete(product);
+		return new SuccessDataResult<>(deleteProductResponse,BusinessMessage.GlobalMessages.DATA_DELETED_SUCCESSFULLY);
 	}
+	
 	@Override
 	public DataResult<UpdateProductResponse> updateProduct(UpdateProductRequest updateProductRequest) {
-		// TODO Auto-generated method stub
-		return null;
+		 Product product = this.modelMapperService.forRequest().map(updateProductRequest, Product.class);
+	     this.productRepository.save(product);
+	     UpdateProductResponse updateProductResponse = this.modelMapperService.forResponse().map(product, UpdateProductResponse.class);
+		 return new SuccessDataResult<>(updateProductResponse, BusinessMessage.GlobalMessages.DATA_UPDATED_SUCCESSFULLY);
 	}
 	
 	

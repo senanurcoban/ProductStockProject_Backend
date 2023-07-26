@@ -20,5 +20,5 @@ public interface EmployeeService {
 	DataResult<GetEmployeeResponse> getById(int id);
 	DataResult<DeleteEmployeeResponse> delete(int id);
 	DataResult<UpdateEmployeeResponse> update (UpdateEmployeeRequest updateEmployeeRequest);
-	DataResult<GetEmployeeResponse> getByFirstName(String name);
+	
 }

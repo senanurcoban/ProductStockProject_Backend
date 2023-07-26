@@ -20,6 +20,7 @@ import com.example.demo.business.responses.order.GetOrderResponse;
 import com.example.demo.business.responses.order.UpdateOrderResponse;
 import com.example.demo.core.result.DataResult;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -34,7 +35,7 @@ public class OrderController {
 	}
 	
 	@PostMapping("/add")
-	public  DataResult<CreateOrderResponse> add(@RequestBody() CreateOrderRequest createOrderRequest) {
+	public  DataResult<CreateOrderResponse> add(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
 		return this.orderService.add(createOrderRequest);
 	}
     @GetMapping("/getbyid")
@@ -46,7 +47,7 @@ public class OrderController {
 		return orderService.delete(id);
 	}
 	@PutMapping("/update")
-	public DataResult<UpdateOrderResponse> update(@RequestBody UpdateOrderRequest updateOrderRequest) {
+	public DataResult<UpdateOrderResponse> update(@RequestBody @Valid UpdateOrderRequest updateOrderRequest) {
 		return orderService.update(updateOrderRequest);
 	}
 }
