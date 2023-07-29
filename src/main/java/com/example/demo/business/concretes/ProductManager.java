@@ -13,6 +13,7 @@ import com.example.demo.business.responses.product.DeleteProductResponse;
 import com.example.demo.business.responses.product.GetAllProductsResponse;
 import com.example.demo.business.responses.product.GetProductResponse;
 import com.example.demo.business.responses.product.UpdateProductResponse;
+import com.example.demo.core.exceptions.BusinessException;
 import com.example.demo.core.mapping.ModelMapperService;
 import com.example.demo.core.messages.BusinessMessage;
 import com.example.demo.core.result.DataResult;
@@ -39,6 +40,7 @@ public class ProductManager implements ProductService{
 	
 	@Override
 	public DataResult<CreateProductResponse> add(CreateProductRequest createProductRequest) {
+		
 		Product product=this.modelMapperService.forRequest().map(createProductRequest,Product.class);
 		this.productRepository.save(product);
 		CreateProductResponse createProductResponse=this.modelMapperService.forResponse().map(product, CreateProductResponse.class);
@@ -77,8 +79,13 @@ public class ProductManager implements ProductService{
 	}
 	
 	
-
+	private void checkIfProductNameExists(String name) {
+	List<Product> product = this.productRepository.findByName(name);
+	if (product != null) {
+		throw new BusinessException("PRODUCT.NAME.EXISTS");
+	}
 	
+	}
 	
 
 }

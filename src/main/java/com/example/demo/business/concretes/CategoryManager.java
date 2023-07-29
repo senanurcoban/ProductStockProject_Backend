@@ -13,6 +13,7 @@ import com.example.demo.business.responses.category.DeleteCategoryResponse;
 import com.example.demo.business.responses.category.GetAllCategoryResponse;
 import com.example.demo.business.responses.category.GetCategoryResponse;
 import com.example.demo.business.responses.category.UpdateCategoryResponse;
+import com.example.demo.core.exceptions.BusinessException;
 import com.example.demo.core.mapping.ModelMapperService;
 import com.example.demo.core.messages.BusinessMessage;
 import com.example.demo.core.result.DataResult;
@@ -41,6 +42,7 @@ public class CategoryManager implements CategoryService {
 
 	@Override
 	public DataResult<CreateCategoryResponse> add(CreateCategoryRequest createCategoryRequest) {
+		
 		Category category=this.modelMapperService.forRequest().map(createCategoryRequest,Category.class);
 		this.categoryRepository.save(category);
 		CreateCategoryResponse createCategoryResponse=this.modelMapperService.forResponse().map(category, CreateCategoryResponse.class);
@@ -81,7 +83,12 @@ public class CategoryManager implements CategoryService {
 		return new SuccessDataResult<>(updateCategoryResponse, BusinessMessage.GlobalMessages.DATA_UPDATED_SUCCESSFULLY);
 	}
 	
-	
+	private void checkIfCategoryExistsByName(String name){
+        List<Category> category = this.categoryRepository.getByName(name);
+        if (category != null ){
+            throw new BusinessException("Category name already exists");
+        }
+    }
 
 	
 }

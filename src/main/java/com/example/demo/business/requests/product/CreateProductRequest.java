@@ -1,7 +1,5 @@
 package com.example.demo.business.requests.product;
 
-
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,15 +11,15 @@ import lombok.NoArgsConstructor;
 public class CreateProductRequest {
 
 	@NotNull
-	@NotEmpty
 	private int categoryId;
 	
-	@NotEmpty
+	
+	@NotNull
 	private String name;
 	
-	@NotEmpty
+	@NotNull
 	private double unitPrice;
 	
-	@NotEmpty
+	@NotNull
 	private int unitsInStock;
 }
