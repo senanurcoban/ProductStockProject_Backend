@@ -2,6 +2,7 @@ package com.example.demo.entities;
 
 import java.time.LocalDateTime;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,5 +32,5 @@ public class Order {
 	private Employee employee;
 	
 	@Column(name="date")
-	private LocalDateTime Date = LocalDateTime.now();
+	private LocalDateTime Date= LocalDateTime.now();
 }

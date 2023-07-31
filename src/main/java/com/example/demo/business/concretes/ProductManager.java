@@ -40,11 +40,14 @@ public class ProductManager implements ProductService{
 	
 	@Override
 	public DataResult<CreateProductResponse> add(CreateProductRequest createProductRequest) {
-		
+		//checkIfProductNameExists(createProductRequest.getName());
+		//checkIfExistsById(createProductRequest.getCategoryId());
 		Product product=this.modelMapperService.forRequest().map(createProductRequest,Product.class);
 		this.productRepository.save(product);
 		CreateProductResponse createProductResponse=this.modelMapperService.forResponse().map(product, CreateProductResponse.class);
 		return new SuccessDataResult<>(createProductResponse, BusinessMessage.GlobalMessages.DATA_ADDED_SUCCESSFULLY);
+		
+		 
 	}
 	
 	@Override
@@ -56,6 +59,7 @@ public class ProductManager implements ProductService{
 	
 	@Override
 	public DataResult<GetProductResponse> getById(int id) {
+		    checkIfExistsById(id);
 		    Product product = this.productRepository.findById(id).get();
 	        GetProductResponse getAllProductResponse= this.modelMapperService.forResponse().map(product, GetProductResponse.class);
 	        return new SuccessDataResult<>(getAllProductResponse,BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
@@ -64,6 +68,7 @@ public class ProductManager implements ProductService{
 	
 	@Override
 	public DataResult<DeleteProductResponse> deleteProduct(int id) {
+		checkIfExistsById(id);
 		Product product = this.productRepository.findById(id).get();
 		DeleteProductResponse deleteProductResponse=this.modelMapperService.forResponse().map(product,DeleteProductResponse.class);
 		this.productRepository.delete(product);
@@ -72,6 +77,8 @@ public class ProductManager implements ProductService{
 	
 	@Override
 	public DataResult<UpdateProductResponse> updateProduct(UpdateProductRequest updateProductRequest) {
+		 checkIfExistsById(updateProductRequest.getId());
+		 checkIfProductNameExists(updateProductRequest.getName());
 		 Product product = this.modelMapperService.forRequest().map(updateProductRequest, Product.class);
 	     this.productRepository.save(product);
 	     UpdateProductResponse updateProductResponse = this.modelMapperService.forResponse().map(product, UpdateProductResponse.class);
@@ -82,10 +89,16 @@ public class ProductManager implements ProductService{
 	private void checkIfProductNameExists(String name) {
 	List<Product> product = this.productRepository.findByName(name);
 	if (product != null) {
-		throw new BusinessException("PRODUCT.NAME.EXISTS");
+		throw new BusinessException(BusinessMessage.Product.PRODUCT_NAME_EXISTS);
 	}
 	
 	}
+	
+	private void checkIfExistsById(int id) {
+        if (!this.productRepository.existsById(id)){
+            throw new BusinessException(BusinessMessage.Product.PRODUCT_LIST_EMPTY);
+        }
+    }
 	
 
 }

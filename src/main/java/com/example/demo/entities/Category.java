@@ -30,6 +30,6 @@ public class Category {
 	   private String name;
 	  
 	   
-	   @OneToMany(mappedBy = "category",cascade = CascadeType.DETACH)
+	   @OneToMany(mappedBy = "category",cascade=CascadeType.DETACH)
 	   private List<Product> products;
 }

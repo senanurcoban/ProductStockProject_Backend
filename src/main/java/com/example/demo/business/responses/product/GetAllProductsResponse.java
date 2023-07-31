@@ -13,4 +13,5 @@ public class GetAllProductsResponse {
 	  private String name;
 	  private double unitPrice;
 	  private int  unitsInStock;
+	  private int categoryId;
 }

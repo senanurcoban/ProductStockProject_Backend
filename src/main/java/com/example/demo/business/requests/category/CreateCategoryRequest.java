@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class CreateCategoryRequest {
 
 	
+	
 	@NotNull
 	@Size(min=3)
 	private String name;

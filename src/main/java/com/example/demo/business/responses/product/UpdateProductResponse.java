@@ -13,4 +13,5 @@ public class UpdateProductResponse {
 	  private String name;
 	  private double unitPrice;
 	  private int  unitsInStock;
+	  private int categoryId;
 }

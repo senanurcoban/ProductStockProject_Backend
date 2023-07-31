@@ -42,7 +42,7 @@ public class CategoryManager implements CategoryService {
 
 	@Override
 	public DataResult<CreateCategoryResponse> add(CreateCategoryRequest createCategoryRequest) {
-		
+		checkIfCategoryExistsByName(createCategoryRequest.getName());
 		Category category=this.modelMapperService.forRequest().map(createCategoryRequest,Category.class);
 		this.categoryRepository.save(category);
 		CreateCategoryResponse createCategoryResponse=this.modelMapperService.forResponse().map(category, CreateCategoryResponse.class);
@@ -60,6 +60,7 @@ public class CategoryManager implements CategoryService {
 
 	@Override
 	public DataResult<GetCategoryResponse> getById(int id) {
+		checkIfExistsById(id);
 		Category category = this.categoryRepository.findById(id).get();
         GetCategoryResponse getAllCategoryResponse= this.modelMapperService.forResponse().map(category, GetCategoryResponse.class);
         return new SuccessDataResult<>(getAllCategoryResponse,BusinessMessage.GlobalMessages.DATA_LISTED_SUCCESSFULLY);
@@ -68,6 +69,7 @@ public class CategoryManager implements CategoryService {
 
 	@Override
 	public DataResult<DeleteCategoryResponse> delete(int id) {
+		checkIfExistsById(id);
 		Category category = this.categoryRepository.findById(id).get();
 		DeleteCategoryResponse deleteCategoryResponse=this.modelMapperService.forResponse().map(category,DeleteCategoryResponse.class);
 		this.categoryRepository.delete(category);
@@ -77,6 +79,8 @@ public class CategoryManager implements CategoryService {
 
 	@Override
 	public DataResult<UpdateCategoryResponse> update(UpdateCategoryRequest updateCategoryRequest) {
+		checkIfExistsById(updateCategoryRequest.getId());
+		checkIfCategoryExistsByName( updateCategoryRequest.getName());
 		Category category=this.modelMapperService.forRequest().map(updateCategoryRequest,Category.class);
 		this.categoryRepository.save(category);
 		UpdateCategoryResponse updateCategoryResponse=this.modelMapperService.forResponse().map(category,UpdateCategoryResponse.class);
@@ -86,9 +90,14 @@ public class CategoryManager implements CategoryService {
 	private void checkIfCategoryExistsByName(String name){
         List<Category> category = this.categoryRepository.getByName(name);
         if (category != null ){
-            throw new BusinessException("Category name already exists");
+            throw new BusinessException(BusinessMessage.Category.CATEGORY_NAME_EXISTS);
         }
     }
 
+	private void checkIfExistsById(int id) {
+        if (!this.categoryRepository.existsById(id)){
+            throw new BusinessException(BusinessMessage.Category.CATEGORY_LIST_EMPTY);
+        }
+    }
 	
 }

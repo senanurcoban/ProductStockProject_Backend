@@ -1,12 +1,16 @@
 package com.example.demo.entities;
 
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,8 +37,7 @@ public class Product {
 	   @Column(name="unitsInStock")
 	   private int  unitsInStock;
 	   
-	   
-	   @ManyToOne
-	   @JoinColumn(name="categoryId")
-	   private Category category;  // one to many kategori one product fazla
+	   @ManyToOne(cascade=CascadeType.ALL)
+	   @JoinColumn(name="category_id")
+	   private Category category;         
 }

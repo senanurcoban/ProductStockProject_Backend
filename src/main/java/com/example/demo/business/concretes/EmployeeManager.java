@@ -79,7 +79,7 @@ public class EmployeeManager implements EmployeeService{
 	
 	private void checkIfExistsById(int id) {
         if (!this.employeeRepository.existsById(id)){
-            throw new BusinessException(BusinessMessage.Employee.Employee_LIST_EMPTY);
+            throw new BusinessException(BusinessMessage.Employee.EMPLOYEE_LIST_EMPTY);
         }
     }
 	

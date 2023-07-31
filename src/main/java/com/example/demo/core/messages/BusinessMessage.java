@@ -14,9 +14,16 @@ public class BusinessMessage {
 	 
 	 public static class Employee{
 	        public static final String ID_NOT_FOUND = "Employee Id Not Found ";
-	        public static final String Employee_LIST_EMPTY="This List is Empty";
+	        public static final String EMPLOYEE_LIST_EMPTY="This List is Empty";
 	    }
 	 
+	 public static class Product{
+		 public static final String PRODUCT_LIST_EMPTY="This List is Product";
+		 public static final String PRODUCT_NAME_EXISTS="Product name already exists";
+	 }
 	 
-	 
+	 public static class Category{
+		 public static final String CATEGORY_LIST_EMPTY="This List is Category";
+		 public static final String CATEGORY_NAME_EXISTS="Category name already exists";
+	 }
 }
